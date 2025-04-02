@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Students</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Student Management</h1>
+      <% if (isLoggedIn) { %>
+      <div class="profile-button">
+        <a href="/profile">Profile</a>
+      </div>
+      <div class="print-button">
+        <a href="/students/print">Print All</a>
+      </div>
+      <% } %>
+    </header>
+
+    <!-- Login Form -->
+    <% if (!isLoggedIn) { %>
+    <section class="login-section">
+      <h2>Login</h2>
+      <form action="/login" method="POST">
+        <input type="text" name="username" placeholder="Username" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+    </section>
+    <% } else { %>
+    <!-- Logout Button -->
+    <form action="/logout" method="POST" class="logout-form">
+      <button type="submit">Logout</button>
+    </form>
+
+    <!-- Add Student Form -->
+    <section class="add-student-section">
+      <h2>Add New Student</h2>
+      <form action="/students" method="POST">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="number" name="age" placeholder="Age" required />
+        <input type="text" name="major" placeholder="Major" required />
+        <input type="text" name="paid" placeholder="Paid (Yes/No)" required />
+        <input
+          type="number"
+          name="amountPaid"
+          placeholder="Amount Paid"
+          required
+        />
+        <button type="submit">Add Student</button>
+      </form>
+    </section>
+
+    <!-- Student List -->
+    <section class="student-list-section">
+      <h2>Student List</h2>
+      <table class="student-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Major</th>
+            <th>Paid</th>
+            <th>Amount Paid</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% students.forEach(student => { %>
+          <tr>
+            <td><%= student.id %></td>
+            <td><%= student.name %></td>
+            <td><%= student.age %></td>
+            <td><%= student.major %></td>
+            <td><%= student.paid %></td>
+            <td><%= student.amountPaid %></td>
+            <td>
+              <!-- Update and Delete Forms -->
+              <form
+                action="/students/<%= student.id %>?_method=PUT"
+                method="POST"
+                class="inline-form"
+              >
+                <input type="text" name="name" placeholder="New Name" />
+                <input type="number" name="age" placeholder="New Age" />
+                <input type="text" name="major" placeholder="New Major" />
+                <input type="text" name="paid" placeholder="Paid (Yes/No)" />
+                <input
+                  type="number"
+                  name="amountPaid"
+                  placeholder="New Amount Paid"
+                />
+                <button type="submit">Update</button>
+              </form>
+              <form
+                action="/students/<%= student.id %>?_method=DELETE"
+                method="POST"
+                class="inline-form"
+              >
+                <button type="submit">Delete</button>
+              </form>
+              <a href="/students/print/<%= student.id %>">Print</a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+    <% } %>
+  </body>
+</html>

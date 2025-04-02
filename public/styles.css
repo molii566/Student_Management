@@ -1,0 +1,171 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.student-table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.student-table th,
+.student-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.student-table th {
+  background-color: #4caf50;
+  color: white;
+}
+
+.student-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+student-table tr:hover {
+  background-color: #ddd;
+}
+
+section {
+  margin: 20px auto;
+  width: 80%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #4caf50;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+form input,
+form button {
+  padding: 10px;
+  width: 80%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+form button {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #45a049;
+}
+
+.inline-form {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.logout-form {
+  text-align: center;
+  margin: 20px;
+}
+
+.logout-form button {
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-form button:hover {
+  background-color: #d32f2f;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+}
+
+header h1 {
+  margin: 0;
+}
+
+.profile-button {
+  margin-right: 20px;
+}
+
+.profile-button a {
+  text-decoration: none;
+  color: white;
+  background-color: #333;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.profile-button a:hover {
+  background-color: #555;
+}
+
+.print-button {
+  margin-right: 20px;
+}
+
+.print-button a {
+  text-decoration: none;
+  color: white;
+  background-color: #007bff;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.print-button a:hover {
+  background-color: #0056b3;
+}
+
+.filters {
+  margin: 20px auto;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filters label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.filters input,
+.filters select {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}

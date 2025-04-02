@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Print Students</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script>
+      function applyFilters() {
+        const paidFilter = document
+          .getElementById("paidFilter")
+          .value.toLowerCase();
+        const departmentFilter = document
+          .getElementById("departmentFilter")
+          .value.toLowerCase();
+
+        const rows = document.querySelectorAll(".student-row");
+        rows.forEach((row) => {
+          const paid = row.getAttribute("data-paid").toLowerCase();
+          const department = row.getAttribute("data-department").toLowerCase();
+
+          if (
+            (paidFilter === "all" || paid === paidFilter) &&
+            (departmentFilter === "all" || department === departmentFilter)
+          ) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Student Details</h1>
+
+    <!-- Filters -->
+    <section class="filters">
+      <label for="paidFilter">Paid Status:</label>
+      <select id="paidFilter" onchange="applyFilters()">
+        <option value="all">All</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <label for="departmentFilter">Department:</label>
+      <select id="departmentFilter" onchange="applyFilters()">
+        <option value="all">All</option>
+        <% const uniqueDepartments = [...new Set(students.map(student =>
+        student.major))]; uniqueDepartments.forEach(department => { %>
+        <option value="<%= department %>"><%= department %></option>
+        <% }) %>
+      </select>
+    </section>
+
+    <!-- Student Table -->
+    <table class="student-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Major</th>
+          <th>Paid</th>
+          <th>Amount Paid</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% students.forEach(student => { %>
+        <tr
+          class="student-row"
+          data-paid="<%= student.paid %>"
+          data-department="<%= student.major %>"
+        >
+          <td><%= student.id %></td>
+          <td><%= student.name %></td>
+          <td><%= student.age %></td>
+          <td><%= student.major %></td>
+          <td><%= student.paid %></td>
+          <td><%= student.amountPaid %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <button onclick="window.print()">Print</button>
+  </body>
+</html>

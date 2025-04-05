@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const methodOverride = require("method-override");
@@ -180,5 +181,7 @@ app.delete("/students/:id", (req, res) => {
     else res.redirect("/students");
   });
 });
-
-app.listen(3000, () => console.log("Server is running on port 3000"));
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on ${port}`);
+});

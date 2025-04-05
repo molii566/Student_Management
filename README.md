@@ -26,6 +26,7 @@ The following npm packages are used in this project:
 - `bcrypt`
 - `cookie-session`
 - `method-override`
+- `nodemon`
 
 ## ⚙️ Installation
 

@@ -31,7 +31,8 @@ const db = new sqlite3.Database(path.join(__dirname, "students.db"), (err) => {
         age INTEGER NOT NULL,
         major TEXT NOT NULL,
         paid TEXT NOT NULL,
-        amountPaid REAL NOT NULL
+        amountPaid REAL NOT NULL,
+        telephone TEXT NOT NULL
       )`
     );
     db.run(
@@ -120,10 +121,10 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/students", (req, res) => {
-  const { name, age, major, paid, amountPaid } = req.body;
+  const { name, age, major, paid, amountPaid, telephone } = req.body;
   db.run(
-    "INSERT INTO students (name, age, major, paid, amountPaid) VALUES (?, ?, ?, ?, ?)",
-    [name, age, major, paid, amountPaid],
+    "INSERT INTO students (name, age, major, paid, amountPaid, telephone) VALUES (?, ?, ?, ?, ?, ?)",
+    [name, age, major, paid, amountPaid, telephone],
     (err) => {
       if (err) res.status(500).send("Database error");
       else res.redirect("/students");
@@ -132,15 +133,45 @@ app.post("/students", (req, res) => {
 });
 
 app.put("/students/:id", (req, res) => {
-  const { name, age, major, paid, amountPaid } = req.body;
-  db.run(
-    "UPDATE students SET name = ?, age = ?, major = ?, paid = ?, amountPaid = ? WHERE id = ?",
-    [name, age, major, paid, amountPaid, req.params.id],
-    (err) => {
+  const updates = [];
+  const params = [];
+
+  if (req.body.name) {
+    updates.push("name = ?");
+    params.push(req.body.name);
+  }
+  if (req.body.age) {
+    updates.push("age = ?");
+    params.push(req.body.age);
+  }
+  if (req.body.major) {
+    updates.push("major = ?");
+    params.push(req.body.major);
+  }
+  if (req.body.paid) {
+    updates.push("paid = ?");
+    params.push(req.body.paid);
+  }
+  if (req.body.amountPaid) {
+    updates.push("amountPaid = ?");
+    params.push(req.body.amountPaid);
+  }
+  if (req.body.telephone) {
+    updates.push("telephone = ?");
+    params.push(req.body.telephone);
+  }
+
+  if (updates.length > 0) {
+    const query = `UPDATE students SET ${updates.join(", ")} WHERE id = ?`;
+    params.push(req.params.id);
+
+    db.run(query, params, (err) => {
       if (err) res.status(500).send("Database error");
       else res.redirect("/students");
-    }
-  );
+    });
+  } else {
+    res.status(400).send("No fields to update");
+  }
 });
 
 app.delete("/students/:id", (req, res) => {

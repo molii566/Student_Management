@@ -11,7 +11,7 @@
       <h1>Student Management</h1>
       <% if (isLoggedIn) { %>
       <div class="profile-button">
-        <a href="/profile">Profile</a>
+        <a href="#">By Mo-Lii</a>
       </div>
       <div class="print-button">
         <a href="/students/print">Print All</a>
@@ -54,6 +54,7 @@
           placeholder="Amount Paid"
           required
         />
+        <input type="text" name="telephone" placeholder="Telephone" required />
         <button type="submit">Add Student</button>
       </form>
     </section>
@@ -70,6 +71,7 @@
             <th>Major</th>
             <th>Paid</th>
             <th>Amount Paid</th>
+            <th>Telephone</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -82,6 +84,7 @@
             <td><%= student.major %></td>
             <td><%= student.paid %></td>
             <td><%= student.amountPaid %></td>
+            <td><%= student.telephone %></td>
             <td>
               <!-- Update and Delete Forms -->
               <form
@@ -97,6 +100,11 @@
                   type="number"
                   name="amountPaid"
                   placeholder="New Amount Paid"
+                />
+                <input
+                  type="text"
+                  name="telephone"
+                  placeholder="New Telephone"
                 />
                 <button type="submit">Update</button>
               </form>
